@@ -89,10 +89,9 @@ class hashTable {
 
     static int SIZE = 20;
     int data;
-    
-    
-    
+
     class DataItem {
+
         int data;
         int key;
     }
@@ -191,59 +190,99 @@ class hashTable {
 
 }//end of hashTable class
 
-public class DataStructures {
+class Sort {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        int sorted_array[] = {2, 3, 5, 13, 22, 33, 24, 222, 223, 555, 859, 950};
-        search way = new search();
+    static int MAX = 10;
 
-        int num = 223;
-        int index;
+    static class bubblesort {
 
-        //index = way.binarySearch(num, sorted_array);
+        int[] list = {1, 8, 4, 6, 0, 3, 5, 2, 7, 9};
 
-        //index = way.interpolationSearch(num, sorted_array);
+        void display() {
+            int i;
+            System.out.print("[");
 
-        //test hashTable
-        //hashTable myHash = new hashTable();
-         
-        //myHash.dummyItem.data = -1;
-        //myHash.dummyItem.key = -1;
+            // navigate through all items 
+            for (i = 0; i < MAX; i++) {
+                System.out.println(list[i]);
+            }
 
-        /*myHash.insert(1, 20);
-        myHash.insert(2, 70);
-        myHash.insert(42, 80);
-        myHash.insert(4, 25);
-        myHash.insert(12, 44);
-        myHash.insert(14, 32);
-        myHash.insert(17, 11);
-        myHash.insert(13, 78);
-        myHash.insert(37, 97);
-
-        myHash.display();
-
-        myHash.item = myHash.search(37);
-
-        if (myHash.item != null) {
-            System.out.println("Element found: " + myHash.item.data);
-        } else {
-            System.out.println("Element not found");
+            System.out.println("]");
         }
 
-        myHash.delete(myHash.item);
+        void bubbleSort() {
+            int temp;
+            int i, j;
 
-        myHash.item = myHash.search(37);
+            boolean swapped = false;
 
-        if (myHash.item != null) {
-            System.out.println("Element found: " + myHash.item.data);
-        } else {
-            System.out.println("Element not found");
-        }*/
+            // loop through all numbers 
+            for (i = 0; i < MAX - 1; i++) {
+                swapped = false;
+
+                // loop through numbers falling ahead 
+                for (j = 0; j < MAX - 1 - i; j++) {
+                    System.out.println("Items compared: [" + list[j] + "], [" + list[j + 1] + "]");
+
+                    // check if next number is lesser than current no
+                    //   swap the numbers. 
+                    //  (Bubble up the highest number) 
+                    if (list[j] > list[j + 1]) {
+                        temp = list[j];
+                        list[j] = list[j + 1];
+                        list[j + 1] = temp;
+
+                        swapped = true;
+                        System.out.println(" => swapped [" + list[j] + ", " + list[j + 1] + "]");
+                    } else {
+                        System.out.println(" => not swapped");
+                    }
+
+                }
+
+                // if no number was swapped that means 
+                //   array is sorted now, break the loop. 
+                if (!swapped) {
+                    break;
+                }
+                   
+                System.out.println("Iteration " + (i + 1) + "#: ");
+                
+                display();
+            }
+
+        }
+
+    }// end of class bubblesort
+}//end of sort class.
+
+    public class DataStructures {
+
+        /**
+         * @param args the command line arguments
+         */
+        public static void main(String[] args) {
+            // TODO code application logic here
+            int sorted_array[] = {2, 3, 5, 13, 22, 33, 24, 222, 223, 555, 859, 950};
+            search way = new search();
+
+            int num = 223;
+            int index;
+
+            //index = way.binarySearch(num, sorted_array);
+            //index = way.interpolationSearch(num, sorted_array);
+            //test hashTable
+            //hashTable myHash = new hashTable();
+            //myHash.dummyItem.data = -1;
+            //myHash.dummyItem.key = -1;
+
+                     
+            Sort mySort = new Sort();
+            
+            Sort.bubblesort myBubble = new Sort.bubblesort();
+            
+            myBubble.bubbleSort();
+            
+        }
 
     }
-
-}
