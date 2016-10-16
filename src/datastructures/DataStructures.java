@@ -194,21 +194,32 @@ class Sort {
 
     static int MAX = 10;
 
+    public static void display(int[] list) {
+        int i;
+        System.out.print("[");
+
+        // navigate through all items 
+        for (i = 0; i < list.length; i++) {
+            System.out.println(list[i]);
+        }
+
+        System.out.println("]");
+    }
+    
+    public static void printline(int count) {
+            int i;
+
+            for (i = 0; i < count - 1; i++) {
+                System.out.print("=");
+            }
+
+            System.out.println();
+        }
+
+
     static class bubblesort {
 
         int[] list = {1, 8, 4, 6, 0, 3, 5, 2, 7, 9};
-
-        void display() {
-            int i;
-            System.out.print("[");
-
-            // navigate through all items 
-            for (i = 0; i < MAX; i++) {
-                System.out.println(list[i]);
-            }
-
-            System.out.println("]");
-        }
 
         void bubbleSort() {
             int temp;
@@ -245,44 +256,126 @@ class Sort {
                 if (!swapped) {
                     break;
                 }
-                   
+
                 System.out.println("Iteration " + (i + 1) + "#: ");
-                
-                display();
+                Sort.display(this.list);
             }
 
         }
 
     }// end of class bubblesort
-}//end of sort class.
 
-    public class DataStructures {
+    static class insertionSort {
 
-        /**
-         * @param args the command line arguments
-         */
-        public static void main(String[] args) {
-            // TODO code application logic here
-            int sorted_array[] = {2, 3, 5, 13, 22, 33, 24, 222, 223, 555, 859, 950};
-            search way = new search();
+        int[] intArray = {4, 6, 3, 2, 1, 9, 7};
 
-            int num = 223;
-            int index;
+        
+        void insertionSort() {
 
-            //index = way.binarySearch(num, sorted_array);
-            //index = way.interpolationSearch(num, sorted_array);
-            //test hashTable
-            //hashTable myHash = new hashTable();
-            //myHash.dummyItem.data = -1;
-            //myHash.dummyItem.key = -1;
+            int valueToInsert;
+            int holePosition;
+            int i;
 
-                     
-            Sort mySort = new Sort();
-            
-            Sort.bubblesort myBubble = new Sort.bubblesort();
-            
-            myBubble.bubbleSort();
-            
+            // loop through all numbers 
+            for (i = 1; i < intArray.length; i++) {
+
+                // select a value to be inserted. 
+                valueToInsert = intArray[i];
+
+                // select the hole position where number is to be inserted 
+                holePosition = i;
+
+                // check if previous no. is larger than value to be inserted 
+                while (holePosition > 0 && intArray[holePosition - 1] > valueToInsert) {
+                    intArray[holePosition] = intArray[holePosition - 1];
+                    holePosition--;
+                    System.out.println(" item moved: " + intArray[holePosition]);
+                }
+
+                if (holePosition != i) {
+                    System.out.print(" item inserted : " + valueToInsert);
+                    System.out.println(" at position " + holePosition);
+                    // insert the number at hole position 
+                    intArray[holePosition] = valueToInsert;
+                }
+
+                System.out.println("Iteration " + (i + 1) + "#: ");
+                Sort.display(intArray);
+
+            }
         }
 
+    }//end of insertion sort class
+
+    static class selectionSort {
+
+        int intArray[] = {4, 6, 3, 2, 1, 9, 7};
+
+        void selectionSort() {
+
+            int indexMin, i, j;
+
+            // loop through all numbers 
+            for (i = 0; i < intArray.length  - 1; i++) {
+
+                // set current element as minimum 
+                indexMin = i;
+
+                // check the element to be minimum 
+                for (j = i + 1; j < intArray.length; j++) {
+                    if (intArray[j] < intArray[indexMin]) {
+                        indexMin = j;
+                    }
+                }
+
+                if (indexMin != i) {
+                    System.out.print("Items swapped [ " + intArray[i]);
+                    System.out.println(", " + intArray[indexMin] + "]");
+
+                    // swap the numbers 
+                    int temp = intArray[indexMin];
+                    intArray[indexMin] = intArray[i];
+                    intArray[i] = temp;
+                }
+
+                System.out.println("Iteration " + (i + 1) + "#: ");
+                Sort.display(intArray);
+
+            }
+        }
+    }//end of selection sort class
+}//end of sort class.
+
+public class DataStructures {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int sorted_array[] = {2, 3, 5, 13, 22, 33, 24, 222, 223, 555, 859, 950};
+        search way = new search();
+
+        int num = 223;
+        int index;
+
+        //index = way.binarySearch(num, sorted_array);
+        //index = way.interpolationSearch(num, sorted_array);
+        //test hashTable
+        //hashTable myHash = new hashTable();
+        //myHash.dummyItem.data = -1;
+        //myHash.dummyItem.key = -1;
+        //Sort mySort = new Sort();
+        //Sort.bubblesort myBubble = new Sort.bubblesort();
+        //myBubble.bubbleSort();
+        //Sort.insertionSort myInsertionSort = new Sort.insertionSort();
+        //System.out.print("Input Array: ");
+        //myInsertionSort.insertionSort();
+        //myInsertionSort.printline(50);
+        
+        Sort.selectionSort mySelectionSort = new Sort.selectionSort();
+        mySelectionSort.selectionSort();
+
     }
+
+}
