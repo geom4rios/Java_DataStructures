@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package datastructures;
-
+import static datastructures.MergerSort.mergeSort;
+import java.util.*;
 /**
  *
  * @author marios
@@ -345,9 +346,9 @@ class Sort {
 
     static class mergeSort {
         int i;
-        int a[] = {10, 14, 19, 26, 27, 31, 33, 35, 42, 44};
-        int b[] = new int[10];
+        int a[] = {10, 166, 196, 526, 327, 311, 33, 345, 47, 44};
         int max = a.length;
+        int b[] = new int[max];
         
         public void mergeSort() {
             System.out.println("List before sorting");
@@ -360,15 +361,15 @@ class Sort {
 
             System.out.println("List after sorting");
 
-            for (i = 0; i <= max; i++) {
+            for (i = 0; i < max; i++) {
                 System.out.println(a[i]);
             }
         }
 
         void merging(int low, int mid, int high) {
             int l1, l2, i;
-
-            for (l1 = low, l2 = mid + 1, i = low; l1 <= mid && l2 <= high; i++) {
+            System.out.println("GOT INTO merging, low is " + low + " mid is " + mid + " and high is " + high);
+            for (l1 = low, l2 = mid + 1, i = low; l1 <= mid && l2 < high; i++) {
                 if (a[l1] <= a[l2]) {
                     b[i] = a[l1++];
                 } else {
@@ -380,11 +381,11 @@ class Sort {
                 b[i++] = a[l1++];
             }
 
-            while (l2 <= high) {
+            while (l2 < high) {
                 b[i++] = a[l2++];
             }
 
-            for (i = low; i <= high; i++) {
+            for (i = low; i < high; i++) {
                 a[i] = b[i];
             }
         }
@@ -394,16 +395,75 @@ class Sort {
 
             if (low < high) {
                 mid = (low + high) / 2;
+                System.out.println("low is " + low + " mid is " + mid + " and high is " + high);
                 sort(low, mid);
                 sort(mid + 1, high);
                 merging(low, mid, high);
-            } else {
-                return;
-            }
+            } 
         }
+        
     }// end of merge sort class.
 
 }//end of sort class.
+
+class MergerSort 
+{
+    @SuppressWarnings("rawtypes") 
+    public static Comparable[] mergeSort(Comparable[] list) 
+    {
+        //If list is empty; no need to do anything
+        if (list.length <= 1) {
+            return list;
+        }
+         
+        //Split the array in half in two parts
+        Comparable[] first = new Comparable[list.length / 2];
+        Comparable[] second = new Comparable[list.length - first.length];
+        System.arraycopy(list, 0, first, 0, first.length);
+        System.arraycopy(list, first.length, second, 0, second.length);
+         
+        //Sort each half recursively
+        mergeSort(first);
+        mergeSort(second);
+         
+        //Merge both halves together, overwriting to original array
+        merge(first, second, list);
+        return list;
+    }
+     
+    @SuppressWarnings({ "rawtypes", "unchecked" }) 
+    private static void merge(Comparable[] first, Comparable[] second, Comparable[] result) 
+    {
+        //Index Position in first array - starting with first element
+        int iFirst = 0;
+         
+        //Index Position in second array - starting with first element
+        int iSecond = 0;
+         
+        //Index Position in merged array - starting with first position
+        int iMerged = 0;
+         
+        //Compare elements at iFirst and iSecond, 
+        //and move smaller element at iMerged
+        while (iFirst < first.length && iSecond < second.length) 
+        {
+            if (first[iFirst].compareTo(second[iSecond]) < 0) 
+            {
+                result[iMerged] = first[iFirst];
+                iFirst++;
+            } 
+            else
+            {
+                result[iMerged] = second[iSecond];
+                iSecond++;
+            }
+            iMerged++;
+        }
+        //copy remaining elements from both halves - each half will have already sorted elements
+        System.arraycopy(first, iFirst, result, iMerged, first.length - iFirst);
+        System.arraycopy(second, iSecond, result, iMerged, second.length - iSecond);
+    }
+}
 
 public class DataStructures {
 
@@ -433,8 +493,20 @@ public class DataStructures {
         //myInsertionSort.printline(50);
         //Sort.selectionSort mySelectionSort = new Sort.selectionSort();
         //mySelectionSort.selectionSort();
-        Sort.mergeSort myMergeSort = new Sort.mergeSort();
-        myMergeSort.mergeSort();
+        //Sort.mergeSort myMergeSort = new Sort.mergeSort();
+        //myMergeSort.mergeSort();
+        
+  
+        //Unsorted array
+        Integer[] a = { 2, 6, 3, 5, 1 };
+         
+        //Call merge sort
+        mergeSort(a);
+         
+        //Check the output which is sorted array
+        System.out.println(Arrays.toString(a));
+
+ 
 
     }
 
