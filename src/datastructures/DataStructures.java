@@ -205,17 +205,16 @@ class Sort {
 
         System.out.println("]");
     }
-    
+
     public static void printline(int count) {
-            int i;
+        int i;
 
-            for (i = 0; i < count - 1; i++) {
-                System.out.print("=");
-            }
-
-            System.out.println();
+        for (i = 0; i < count - 1; i++) {
+            System.out.print("=");
         }
 
+        System.out.println();
+    }
 
     static class bubblesort {
 
@@ -269,7 +268,6 @@ class Sort {
 
         int[] intArray = {4, 6, 3, 2, 1, 9, 7};
 
-        
         void insertionSort() {
 
             int valueToInsert;
@@ -316,7 +314,7 @@ class Sort {
             int indexMin, i, j;
 
             // loop through all numbers 
-            for (i = 0; i < intArray.length  - 1; i++) {
+            for (i = 0; i < intArray.length - 1; i++) {
 
                 // set current element as minimum 
                 indexMin = i;
@@ -344,6 +342,67 @@ class Sort {
             }
         }
     }//end of selection sort class
+
+    static class mergeSort {
+        int i;
+        int a[] = {10, 14, 19, 26, 27, 31, 33, 35, 42, 44};
+        int b[] = new int[10];
+        int max = a.length;
+        
+        public void mergeSort() {
+            System.out.println("List before sorting");
+
+            for (i = 0; i < max; i++) {
+                System.out.print(" " + a[i]);
+            }
+
+            sort(0, max);
+
+            System.out.println("List after sorting");
+
+            for (i = 0; i <= max; i++) {
+                System.out.println(a[i]);
+            }
+        }
+
+        void merging(int low, int mid, int high) {
+            int l1, l2, i;
+
+            for (l1 = low, l2 = mid + 1, i = low; l1 <= mid && l2 <= high; i++) {
+                if (a[l1] <= a[l2]) {
+                    b[i] = a[l1++];
+                } else {
+                    b[i] = a[l2++];
+                }
+            }
+
+            while (l1 <= mid) {
+                b[i++] = a[l1++];
+            }
+
+            while (l2 <= high) {
+                b[i++] = a[l2++];
+            }
+
+            for (i = low; i <= high; i++) {
+                a[i] = b[i];
+            }
+        }
+
+        void sort(int low, int high) {
+            int mid;
+
+            if (low < high) {
+                mid = (low + high) / 2;
+                sort(low, mid);
+                sort(mid + 1, high);
+                merging(low, mid, high);
+            } else {
+                return;
+            }
+        }
+    }// end of merge sort class.
+
 }//end of sort class.
 
 public class DataStructures {
@@ -372,9 +431,10 @@ public class DataStructures {
         //System.out.print("Input Array: ");
         //myInsertionSort.insertionSort();
         //myInsertionSort.printline(50);
-        
-        Sort.selectionSort mySelectionSort = new Sort.selectionSort();
-        mySelectionSort.selectionSort();
+        //Sort.selectionSort mySelectionSort = new Sort.selectionSort();
+        //mySelectionSort.selectionSort();
+        Sort.mergeSort myMergeSort = new Sort.mergeSort();
+        myMergeSort.mergeSort();
 
     }
 
